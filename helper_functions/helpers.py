@@ -1,3 +1,5 @@
+import humanize
+
 #
 # Helper Functions
 #
@@ -32,3 +34,13 @@ def get_nth_folder_and_timestamp(backup_folder_list, index) -> tuple[str, str]:
     latest_abb_charlie_backup_timestamp = latest_abb_charlie_backup[0].split("_")[-1]
 
     return latest_abb_charlie_backup[0], latest_abb_charlie_backup_timestamp
+
+
+#
+# Returns a tuple containing the file size in bytes and a humanized represenation
+# of the file size (for visual purposes).
+#
+def get_folder_size(input_list):
+    total_size_in_bytes = sum(size for name, size in input_list)
+
+    return (total_size_in_bytes, humanize.naturalsize(total_size_in_bytes, gnu=True))
