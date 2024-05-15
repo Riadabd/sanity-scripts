@@ -41,6 +41,6 @@ def get_nth_folder_and_timestamp(backup_folder_list, index) -> tuple[str, str]:
 # of the file size (for visual purposes).
 #
 def get_folder_size(input_list):
-    total_size_in_bytes = sum(size for name, size in input_list)
+    total_size_in_bytes = sum(size for _, size in input_list)
 
     return (total_size_in_bytes, humanize.naturalsize(total_size_in_bytes, gnu=True))
