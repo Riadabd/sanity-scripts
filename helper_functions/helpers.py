@@ -5,7 +5,7 @@ import humanize
 #
 
 
-def getLatestFolderAndTimestamp(backup_folder_list) -> tuple[str, str]:
+def get_latest_folder_and_timestamp(backup_folder_list) -> tuple[str, str]:
     # Get the directory with the latest timestamp.
     # We take the second entry in the list since the first
     # one is occupied by a non-timestamped folder.
