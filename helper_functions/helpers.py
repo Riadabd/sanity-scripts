@@ -8,7 +8,7 @@ import humanize
 def getLatestFolderAndTimestamp(backup_folder_list) -> tuple[str, str]:
     # Get the directory with the latest timestamp.
     # We take the second entry in the list since the first
-    # one in the list is "data_incremental_backup".
+    # one is occupied by a non-timestamped folder.
     latest_abb_charlie_backup = sorted(
         backup_folder_list, key=lambda backup: backup[0], reverse=True
     )[1]
