@@ -190,7 +190,7 @@ def check_backup_size(
 
 # Runs all backup checks
 def server_backup_checks(fs) -> bool:
-    with open("file_structure/servers.json", "r") as file:
+    with open("file_structure/app_server_content.json", "r") as file:
         server_apps = json.load(file)
 
     for server in server_apps:
@@ -248,7 +248,7 @@ def server_backup_checks(fs) -> bool:
                 # return False
 
     # Check and compare backup folder sizes
-    with open("file_structure/backups.json", "r") as file:
+    with open("file_structure/app_backups.json", "r") as file:
         full_backup_locations = json.load(file)
 
     print("\n#")
