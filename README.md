@@ -25,7 +25,7 @@ This is the main backup check script and performs the following tasks:
 
 In order to specify what servers and apps to consider, the user can write this information in *json* files inside `file_structure/`.
 
-#### app_server_content.json
+#### app_backup_server_content.json
 
 The structure of this file is as follows:
 
