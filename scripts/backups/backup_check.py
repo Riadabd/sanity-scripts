@@ -145,11 +145,8 @@ def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesyst
 # large amounts of data), today's backup must be greater than or equal to that from yesterday.
 #
 def check_backup_size(
-    fs, latest_folder_timestamp, second_latest_folder_timestamp, server, app
+    fs, latest_folder_timestamp, second_latest_folder_timestamp, full_backup_locations, server, app
 ) -> bool:
-    with open("file_structure/backups.json", "r") as file:
-        full_backup_locations = json.load(file)
-
     app_backup_locations = full_backup_locations[server][app]["backup-folders"]
 
     for backup_folder in app_backup_locations:
@@ -201,6 +198,7 @@ def server_backup_checks(fs) -> bool:
             (detail["name"], detail["type"])
             for detail in fs.ls(f"/{server}", detail=True)
         ]
+
         latest_server_backup_folder_name, latest_server_backup_timestamp = (
             get_latest_folder_and_timestamp(server_backups)
         )
@@ -249,10 +247,35 @@ def server_backup_checks(fs) -> bool:
                 print("File and folder content check was unsuccessful. ❌")
                 # return False
 
-            print("\n#")
-            print("# Checking Backups")
-            print("#\n")
+    # Check and compare backup folder sizes
+    with open("file_structure/backups.json", "r") as file:
+        full_backup_locations = json.load(file)
 
+    print("\n#")
+    print("# Checking Backups")
+    print("#\n")
+
+    for server in full_backup_locations:
+        # NOTE: Duplicate snippet from the for-loop above. However, we cannot know whether
+        # a user specifies the same servers and apps to have their backups checked, so it is
+        # safer to fetch the latest folders and timestamps again.
+        server_backups = [
+            (detail["name"], detail["type"])
+            for detail in fs.ls(f"/{server}", detail=True)
+        ]
+
+        latest_server_backup_folder_name, latest_server_backup_timestamp = (
+            get_latest_folder_and_timestamp(server_backups)
+        )
+
+        # Fetch the second latest top-level backup folder and its timestamp.
+        # The index is 2 (instead of 1) since the zeroth entry is occupied by a non-timestamped folder.
+        (
+            second_latest_server_backup_folder_name,
+            second_latest_server_backup_timestamp,
+        ) = get_nth_folder_and_timestamp(server_backups, 2)
+
+        for app in full_backup_locations[server]:
             check_backup_size(
                 fs,
                 (
@@ -263,6 +286,7 @@ def server_backup_checks(fs) -> bool:
                     second_latest_server_backup_folder_name,
                     second_latest_server_backup_timestamp,
                 ),
+                full_backup_locations,
                 server,
                 app,
             )
