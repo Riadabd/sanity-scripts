@@ -37,7 +37,9 @@ def server_app_folder_check(fs, latest_timestamp_folder, app_list) -> bool:
 
 
 # Check the content of each app folder
-def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesystem_structure, server, app) -> bool:
+def server_app_folder_content_check(
+    fs, latest_timestamp_folder, server_filesystem_structure, server, app
+) -> bool:
     root_folder = f"{latest_timestamp_folder}/data"
 
     queue = collections.deque([server_filesystem_structure[server][app]])
@@ -90,9 +92,6 @@ def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesyst
                     ]
                 )
 
-            # actual_file_extensions = list(set([name.split('.', 1)[-1] for name, size in actual_backup_files]))
-
-            # if sorted(actual_file_extensions) == sorted(node_file_structure["expected-file-extensions"]):
             if sorted(extension_file_count.keys()) == sorted(
                 node_file_structure["expected-file-extensions"]
             ):
@@ -101,7 +100,6 @@ def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesyst
                         f"* Found {extension_file_count[key]} .{key} files in {current_folder} for {app}.\n"
                     )
             else:
-                # print(f"Found the following file extensions {sorted(actual_file_extensions)} instead of {sorted(node_file_structure["expected-file-extensions"])}")
                 print("There was an extension mismatch!\n")
 
         # Perform folder check for current level
@@ -128,8 +126,6 @@ def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesyst
                     f"Expected folders and actual folders match up in {current_folder} for {app}. ✅\n"
                 )
 
-        # Perform backup checks if there is a "backup" folder included in the folder JSON spec.
-
         # Append folders (e.g., json dictionary keys) to a queue
         # for processing.
         for item in node_file_structure.keys():
@@ -145,7 +141,12 @@ def server_app_folder_content_check(fs, latest_timestamp_folder, server_filesyst
 # large amounts of data), today's backup must be greater than or equal to that from yesterday.
 #
 def check_backup_size(
-    fs, latest_folder_timestamp, second_latest_folder_timestamp, full_backup_locations, server, app
+    fs,
+    latest_folder_timestamp,
+    second_latest_folder_timestamp,
+    full_backup_locations,
+    server,
+    app,
 ) -> bool:
     app_backup_locations = full_backup_locations[server][app]["backup-folders"]
 
