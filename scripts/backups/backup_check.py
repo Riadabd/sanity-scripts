@@ -215,9 +215,9 @@ def server_backup_checks(fs) -> bool:
         print("#\n")
 
         if server_latest_backup_checks(latest_server_backup_timestamp):
-            print(f"{server} has a backup folder from today's timestamp. ✅")
+            print(f"{server} has a backup folder with today's timestamp. ✅")
         else:
-            print(f"{server} does not have a backup folder from today's timestamp. ❌")
+            print(f"{server} does not have a backup folder with today's timestamp. ❌")
             # return False
 
         print("\n#")
@@ -236,7 +236,7 @@ def server_backup_checks(fs) -> bool:
 
         for app in server_apps[server]:
             print("\n#")
-            print(f"# Checking App Folder Content for {app} in {server}")
+            print(f"# Checking app folder content for {app} in {server}")
             print("#\n")
 
             if server_app_folder_content_check(
