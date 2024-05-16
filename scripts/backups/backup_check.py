@@ -37,13 +37,13 @@ def server_app_folder_check(fs, latest_timestamp_folder, app_list) -> bool:
 
 
 # Check the content of each app folder
-def server_app_folder_content_check(fs, latest_timestamp_folder, app) -> bool:
+def server_app_folder_content_check(fs, latest_timestamp_folder, server, app) -> bool:
     with open("file_structure/cacophony.json", "r") as file:
         server_filesystem_structure = json.load(file)
 
     root_folder = f"{latest_timestamp_folder}/data"
 
-    queue = collections.deque([server_filesystem_structure[app]])
+    queue = collections.deque([server_filesystem_structure[server][app]])
 
     while queue:
         node_file_structure = queue.popleft()
@@ -230,7 +230,9 @@ def server_backup_checks(fs) -> bool:
             # return False
 
         print("\n#")
-        print(f"# Checking if {server} has a top-level folder for each app ({server_apps[server]})")
+        print(
+            f"# Checking if {server} has a top-level folder for each app ({server_apps[server]})"
+        )
         print("#\n")
 
         if server_app_folder_check(
@@ -247,7 +249,7 @@ def server_backup_checks(fs) -> bool:
             print("#\n")
 
             if server_app_folder_content_check(
-                fs, latest_server_backup_folder_name, app
+                fs, latest_server_backup_folder_name, server, app
             ):
                 print("File and folder content check was successful. ✅")
             else:
