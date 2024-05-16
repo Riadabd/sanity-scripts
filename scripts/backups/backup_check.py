@@ -276,6 +276,10 @@ def server_backup_checks(fs) -> bool:
         ) = get_nth_folder_and_timestamp(server_backups, 2)
 
         for app in full_backup_locations[server]:
+            print("\n#")
+            print(f"# Checking Backups for {app} on {server}")
+            print("#\n")
+
             check_backup_size(
                 fs,
                 (
