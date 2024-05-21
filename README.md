@@ -165,7 +165,7 @@ docker build --no-cache -t sanity-scripts .
 Run this command inside the repo folder (`sanity-scripts/`).
 
 ```sh
-docker run -it --rm -v $HOME/.ssh:/root/.ssh -v ./.env/:/app/.env/ -v ./file_structure:/app/file_structure/ sanity-scripts:latest
+docker run -it --rm -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent -v ./.env/:/app/.env/ -v ./file_structure:/app/file_structure/ sanity-scripts:latest
 ```
 
 > NOTE: `$HOME/.ssh:/root/.ssh` is passed as a volume to allow SSH connections, but server checks through SSH have not been added yet.
