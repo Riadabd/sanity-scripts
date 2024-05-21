@@ -168,6 +168,6 @@ Run this command inside the repo folder (`sanity-scripts/`).
 docker run -it --rm -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent -v ./.env/:/app/.env/ -v ./file_structure:/app/file_structure/ sanity-scripts:latest
 ```
 
-> NOTE: `$HOME/.ssh:/root/.ssh` is passed as a volume to allow SSH connections, but server checks through SSH have not been added yet.
+> NOTE: `$SSH_AUTH_SOCK:/ssh-agent` is mounted as a volume to pass the SSH agent from the host system to the docker container to allow for connections to remote servers.
 
 > NOTE: `./.env/:/app/.env/` and `./file_structure:/app/file_structure/` are passed as volumes to the container as they contain sensitive data and must not be part of the docker build step.
