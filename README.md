@@ -8,7 +8,7 @@ The script(s) for backup checks is(are) housed inside `scripts/backups`.
 
 ### Credentials
 
-To be able to connect to the backup server and perform checks, the user needs to specify the backup server credentials. The credentials for the backup server must be placed inside `.env/.env.sftp`; `.env.sftp` must contain:
+To be able to connect to the backup server and perform checks, the user needs to specify the server's credentials. These credentials must be placed inside `.env/.env.sftp`; `.env.sftp` must contain:
 
 * **address**
 * **username**
@@ -111,12 +111,12 @@ The structure of this file is as follows:
 }
 ```
 
-The file can be expanded/contracted as the user see fits.
+This file can be expanded/contracted as the user sees fit.
 
 Some quick notes on the keys used in the file:
-* **path**: This helps the script quickly and easily know which path it is currently operating on.
+* **path**: This helps the script easily know which path it is currently operating on.
 * **expected-files**: The script will compare the actual files obtained from the server with the list of files under this json key and output the result.
-* **expected-file-extensions**: When the script sees this key, it means the user wants a particular folder checked for files but does not have an exact list of files to check against. The script will use this key to make sure the folder contains the specified key(s); it will also output the number of files containing each extension.
+* **expected-file-extensions**: When the script sees this key, it means the user wants a particular folder checked for files but does not have an exact list of files to check against. The script will use this key to make sure the folder contains the specified file extension(s); it will also output the number of files containing each extension.
 
 #### app_backups.json
 
@@ -142,15 +142,15 @@ The structure of this file is as follows:
 }
 ```
 
-The script will go over the backup locations on each application and for every server and display the size of today's and yesterday's backup sizes.
+The script will go over the backup locations for each specified application and display the size of today's and yesterday's backup sizes.
 
-The size output is: (bytes, normalized_size). For example, a folder size of 1024 bytes will be displayed as (1024, 1.0K).
+The size output is: (bytes, normalized_size). For example, a file/folder size of 1024 bytes will be displayed as (1024, 1.0K).
 
 ## How to run
 
 ### Using Docker
 
-The base image being used for this project at the moment is `python:3.12`.
+The base image used for this project at the moment is `python:3.12`.
 
 #### Build the image
 
