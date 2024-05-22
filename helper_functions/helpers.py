@@ -1,3 +1,5 @@
+import re
+
 import humanize
 
 #
@@ -44,3 +46,21 @@ def get_folder_size(input_list):
     total_size_in_bytes = sum(size for _, size in input_list)
 
     return (total_size_in_bytes, humanize.naturalsize(total_size_in_bytes, gnu=True))
+
+
+#
+# Returns container processes that have a non-zero exit status code (i.e., they
+# did not exit gracefully).
+#
+def get_non_zero_exit_status_container_processes(container_process_list):
+    result = []
+    regex_pattern = r"(\d+)"
+
+    for process in container_process_list:
+        (name, image, exit_status) = process.split(",")
+        match = re.search(regex_pattern, exit_status)
+        # Check if a match exists with a non-zero exit code
+        if match and int(match.group(0)) != 0:
+            result.append((name, image, exit_status))
+
+    return result
