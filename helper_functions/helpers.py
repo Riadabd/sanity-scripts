@@ -57,10 +57,10 @@ def get_non_zero_exit_status_container_processes(container_process_list):
     regex_pattern = r"(\d+)"
 
     for process in container_process_list:
-        (name, image, exit_status) = process.split(",")
+        (name, image, command, exit_status) = process.split(",")
         match = re.search(regex_pattern, exit_status)
         # Check if a match exists with a non-zero exit code
         if match and int(match.group(0)) != 0:
-            result.append((name, image, exit_status))
+            result.append((name, image, command, exit_status))
 
     return result
