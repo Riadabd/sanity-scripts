@@ -146,6 +146,79 @@ The script will go over the backup locations for each specified application and 
 
 The size output is: (bytes, normalized_size). For example, a file/folder size of 1024 bytes will be displayed as (1024, 1.0K).
 
+## App Server Checks
+
+The script(s) for backup checks is(are) housed inside `scripts/app_servers`.
+
+### Credentials
+
+For the script to establish a SSH connection, we forward the host system's SSH agent to the docker container. The only needed parameters to pass are the following:
+* **host**
+* **user**
+
+### server_process_check.py
+
+This script is responsible for logging docker containers which have quit unexpectedly (i.e., those with a non-zero exit code). An example output is:
+```
+* (container-name-1, image-name-1, command-1, status-1)
+* (container-name-2, image-name-2, command-2, status-2)
+```
+
+In order to specify what servers and apps to consider, the user can write this information in *json* files inside `file_structure/app_servers`.
+
+#### servers.json
+
+The structure of this file is as follows:
+
+```json
+{
+  "server-1": {
+    "host": "server-1.abc.xyz",
+    "user": "user",
+    "applications": {
+      "app-1": {
+        "path": "/data/app-1/"
+      },
+      "app-2": {
+        "path": "/data/app-2/"
+      },
+      "app-3": {
+        "path": "/data/app-3/"
+      },
+      "app-4": {
+        "path": "/data/app-4/"
+      },
+      "app-5": {
+        "path": "/data/app-5/"
+      }
+    }
+  },
+  "server-2": {
+    "host": "server-2.abc.xyz",
+    "user": "user",
+    "applications": {
+      "app-1": {
+        "path": "/data/app-1/"
+      }
+    }
+  },
+  "server-3": {
+    "host": "server-3.abc.xyz",
+    "user": "user",
+    "applications": {
+      "app-1": {
+        "path": "/data/app-1/"
+      }
+    }
+  }
+}
+```
+
+Some quick notes on the keys used in the file:
+* **host**: The host name of the remove server.
+* **user**: The username used to log into the server.
+* **path**: This helps the script easily know which path it is currently operating on.
+
 ## How to run
 
 ### Using Docker
