@@ -171,3 +171,13 @@ docker run -it --rm -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent -v 
 > NOTE: `$SSH_AUTH_SOCK:/ssh-agent` is mounted as a volume to pass the SSH agent from the host system to the docker container to allow for connections to remote servers.
 
 > NOTE: `./.env/:/app/.env/` and `./file_structure:/app/file_structure/` are passed as volumes to the container as they contain sensitive data and must not be part of the docker build step.
+
+### Using a virtual environment
+
+Running the code through a virtual environment allows for a faster develop-test-debug route. There are multiple tools for this job:
+* [venv](https://docs.python.org/3/library/venv.html)
+* [pipenv](https://pipenv.pypa.io/en/latest/)
+* [uv](https://github.com/astral-sh/uv)
+
+After installing your virtual environment tool, make sure to create and activate the virtual environment (according to your tool's docs). Once the virtual environment is activated, run the following to install the needed packages:
+* `pip install -r requirements.txt`
