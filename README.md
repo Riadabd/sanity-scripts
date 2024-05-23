@@ -32,77 +32,61 @@ The structure of this file is as follows:
 ```json
 {
   "server-1": {
-    "sample-app-1": {
-      "path": "sample-app-1",
-      "expected-files": [
-        "file-a.ext-a",
-        "file-b.ext-b",
-        "file-c.ext-a"
-      ],
-      "folder-1": {
-        "path": "sample-app-1/folder-1",
-        "folder-1-1": {
-          "path": "sample-app-1/folder-1/folder-1-1"
-        }
-      },
-      "folder-2": {
-        "path": "sample-app-1/folder-2",
-        "folder-2-1": {
-          "path": "sample-app-1/folder-2/folder-2-1",
-          "expected-files": [
-            "file-1.ext-1",
-            "file-2.ext-1",
-            "file-3.ext-2"
-          ],
-          "folder-2-1-1": {
-            "path": "sample-app-1/folder-2/folder-2-1/folder-2-1-1",
-            "expected-file-extensions": ["ext"]
-          },
-          "folder-2-1-2": {
-            "path": "sample-app-1/folder-2/folder-2-1/folder-2-1-2"
-          },
-          "folder-2-1-3": {
-            "path": "sample-app-1/folder-2/dfolder-2-1/folder-2-1-3"
+    "applications": {
+      "sample-app-1": {
+        "path": "sample-app-1",
+        "expected-files": ["file-a.ext-a", "file-b.ext-b", "file-c.ext-a"],
+        "folder-1": {
+          "path": "sample-app-1/folder-1",
+          "folder-1-1": {
+            "path": "sample-app-1/folder-1/folder-1-1"
           }
         },
-        "folder-2-2": {
-          "path": "sample-app-1/folder-2/folder-2-2",
-          "expected-files": [
-            "file-1.ext-1",
-            "file-2.ext-1",
-            "file-3.ext-2"
-          ],
-          "folder-2-2-1": {
-            "path": "sample-app-1/folder-2/folder-2-2/folder-2-2-1",
-            "expected-file-extensions": ["ext"]
+        "folder-2": {
+          "path": "sample-app-1/folder-2",
+          "folder-2-1": {
+            "path": "sample-app-1/folder-2/folder-2-1",
+            "expected-files": ["file-1.ext-1", "file-2.ext-1", "file-3.ext-2"],
+            "folder-2-1-1": {
+              "path": "sample-app-1/folder-2/folder-2-1/folder-2-1-1",
+              "expected-file-extensions": [".ext-x"]
+            },
+            "folder-2-1-2": {
+              "path": "sample-app-1/folder-2/folder-2-1/folder-2-1-2"
+            },
+            "folder-2-1-3": {
+              "path": "sample-app-1/folder-2/dfolder-2-1/folder-2-1-3"
+            }
           },
-          "folder-2-2-2": {
-            "path": "sample-app-1/folder-2/folder-2-2/folder-2-2-2"
+          "folder-2-2": {
+            "path": "sample-app-1/folder-2/folder-2-2",
+            "expected-files": ["file-1.ext-1", "file-2.ext-1", "file-3.ext-2"],
+            "folder-2-2-1": {
+              "path": "sample-app-1/folder-2/folder-2-2/folder-2-2-1",
+              "expected-file-extensions": [".ext-y"]
+            },
+            "folder-2-2-2": {
+              "path": "sample-app-1/folder-2/folder-2-2/folder-2-2-2"
+            }
           }
         }
       }
     }
   },
   "server-2": {
-    "sample-app-2": {
-      "path": "sample-app-2",
-      "expected-files": [
-        "file-a.ext-a",
-        "file-b.ext-b",
-        "file-c.ext-a"
-      ],
-      "folder-1": {
-        "path": "sample-app-2/folder-1",
-        "folder-1-1": {
-          "path": "sample-app-2/folder-1-1/folder-2",
-          "expected-files": [
-            "file-1.ext-1",
-            "file-2.ext-1",
-            "file-3.ext-2"
-          ],
-          "folder-1-1-1": {
-            "path": "sample-app-2/folder-1/folder-1-1/folder-1-1-1",
-            "expected-file-extensions": ["ext"]
+    "applications": {
+      "sample-app-2": {
+        "path": "sample-app-2",
+        "expected-files": ["file-a.ext-a", "file-b.ext-b", "file-c.ext-a"],
+        "folder-1": {
+          "path": "sample-app-2/folder-1",
+          "folder-1-1": {
+            "path": "sample-app-2/folder-1-1/folder-2",
+            "expected-files": ["file-1.ext-1", "file-2.ext-1", "file-3.ext-2"],
+            "folder-1-1-1": {
+              "path": "sample-app-2/folder-1/folder-1-1/folder-1-1-1",
+              "expected-file-extensions": [".ext-z"]
+            }
           }
         }
       }
