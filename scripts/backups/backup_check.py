@@ -179,11 +179,11 @@ def check_backup_size(
         )
 
         print(
-            f"Backup size for {full_backup_path_1} on {yesterday_date} is {get_folder_size(backup_files_1)}"
+            f"* Backup size for {full_backup_path_1} on {yesterday_date} is {get_folder_size(backup_files_1)}"
         )
 
         print(
-            f"Backup size for {full_backup_path} on {today_date} is {get_folder_size(backup_files)}\n"
+            f"* Backup size for {full_backup_path} on {today_date} is {get_folder_size(backup_files)}\n"
         )
 
     return True
