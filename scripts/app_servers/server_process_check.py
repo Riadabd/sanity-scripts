@@ -25,7 +25,14 @@ def server_process_check():
             )
 
             docker_ps = docker_ps.stdout.strip().split("\n")
-            docker_ps_non_zero = get_non_zero_exit_status_container_processes(docker_ps)
+
+            # In case running the above "docker ps" command yields no results (no non-zero
+            # and no zero exit code processes), we will get a non-empty list (i.e., docker_ps = [''])
+            # and will need to filter on '' before proceeding.
+            if docker_ps[0] != '':
+                docker_ps_non_zero = get_non_zero_exit_status_container_processes(docker_ps)
+            else:
+                docker_ps_non_zero = get_non_zero_exit_status_container_processes([])
 
             print("\n#")
             print(f"# Checking docker container statuses for {app} on {server}")
