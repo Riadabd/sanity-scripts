@@ -48,8 +48,6 @@ def server_process_check():
                     f"{app} has no processes that have exited with a non-zero exit code."
                 )
 
-    return True
-
 
 def main():
     server_process_check()
