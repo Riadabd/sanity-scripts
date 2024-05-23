@@ -1,4 +1,5 @@
 import re
+import collections
 
 import humanize
 
@@ -36,6 +37,107 @@ def get_nth_folder_and_timestamp(backup_folder_list, index) -> tuple[str, str]:
     latest_abb_charlie_backup_timestamp = latest_abb_charlie_backup[0].split("_")[-1]
 
     return latest_abb_charlie_backup[0], latest_abb_charlie_backup_timestamp
+
+
+# Check the content of each app folder
+def server_app_folder_content_check(
+    fs, server_filesystem_structure, server, app, latest_timestamp_folder=""
+) -> bool:
+    root_folder = f"{latest_timestamp_folder}"
+
+    queue = collections.deque(
+        [server_filesystem_structure[server]["applications"][app]]
+    )
+
+    while queue:
+        node_file_structure = queue.popleft()
+
+        current_folder = f"{root_folder}/{node_file_structure["path"]}"
+
+        # Perform file check for current level
+        if "expected-files" in node_file_structure.keys():
+            item = "expected-files"
+
+            actual_files = [
+                detail["name"].split("/")[-1]
+                for detail in fs.ls(
+                    f"{current_folder}",
+                    detail=True,
+                )
+                if detail["type"] == "file"
+            ]
+
+            if sorted(node_file_structure[item]) != sorted(actual_files):
+                print(
+                    f"Found {actual_files} in {current_folder} for {app} instead of {sorted(node_file_structure[item])}. ❌\n"
+                )
+                # return False
+            else:
+                print(
+                    f"Expected files and actual files match up in {current_folder} for {app}. ✅\n"
+                )
+
+        if "expected-file-extensions" in node_file_structure.keys():
+            actual_backup_files = [
+                (detail["name"].split("/")[-1], detail["size"])
+                for detail in fs.ls(
+                    f"{current_folder}",
+                    detail=True,
+                )
+                if detail["type"] == "file"
+            ]
+
+            extension_file_count = dict()
+            for extension in node_file_structure["expected-file-extensions"]:
+                extension_file_count[extension] = len(
+                    [
+                        name
+                        for name, size in actual_backup_files
+                        if name.split(".", 1)[-1] == extension
+                    ]
+                )
+
+            if sorted(extension_file_count.keys()) == sorted(
+                node_file_structure["expected-file-extensions"]
+            ):
+                for key in extension_file_count.keys():
+                    print(
+                        f"* Found {extension_file_count[key]} .{key} files in {current_folder} for {app}.\n"
+                    )
+            else:
+                print("There was an extension mismatch!\n")
+
+        # Perform folder check for current level
+        expected_folders = [
+            item
+            for item in node_file_structure.keys()
+            if isinstance(node_file_structure[item], dict)
+        ]
+
+        actual_folders = [
+            detail["name"].split("/")[-1]
+            for detail in fs.ls(f"{current_folder}", detail=True)
+            if detail["type"] == "directory"
+        ]
+
+        if expected_folders and actual_folders:
+            if sorted(expected_folders) != sorted(actual_folders):
+                print(
+                    f"Found {sorted(actual_folders)} folders in {current_folder} for {app} instead of {sorted(expected_folders)}. ❌\n"
+                )
+                # return False
+            else:
+                print(
+                    f"Expected folders and actual folders match up in {current_folder} for {app}. ✅\n"
+                )
+
+        # Append folders (e.g., json dictionary keys) to a queue
+        # for processing.
+        for item in node_file_structure.keys():
+            if isinstance(node_file_structure[item], dict):
+                queue.append(node_file_structure[item])
+
+    return True
 
 
 #
