@@ -68,13 +68,13 @@ def server_app_folder_content_check(
             ]
 
             if sorted(node_file_structure[item]) != sorted(actual_files):
-                print(
-                    f"Found {actual_files} in {current_folder} for {app} instead of {sorted(node_file_structure[item])}. ❌\n"
-                )
+                print(f"❌ Mismatch between actual and expected files in {current_folder} for {app}:\n")
+                print(f"* Actual files: {sorted(actual_files)}")
+                print(f"* Expected files: {sorted(node_file_structure[item])}\n")
                 # return False
             else:
                 print(
-                    f"Expected files and actual files match up in {current_folder} for {app}. ✅\n"
+                    f"✅ Actual files and expected files match up in {current_folder} for {app}.\n"
                 )
 
         if "expected-file-extensions" in node_file_structure.keys():
@@ -122,13 +122,13 @@ def server_app_folder_content_check(
 
         if expected_folders and actual_folders:
             if sorted(expected_folders) != sorted(actual_folders):
-                print(
-                    f"Found {sorted(actual_folders)} folders in {current_folder} for {app} instead of {sorted(expected_folders)}. ❌\n"
-                )
+                print(f"❌ Mismatch between actual and expected folders in {current_folder} for {app}:\n")
+                print(f"* Actual folders: {sorted(actual_folders)}")
+                print(f"* Expected folders: {sorted(expected_folders)}\n")
                 # return False
             else:
                 print(
-                    f"Expected folders and actual folders match up in {current_folder} for {app}. ✅\n"
+                    f"✅ Actual folders and expected folders match up in {current_folder} for {app}.\n"
                 )
 
         # Append folders (e.g., json dictionary keys) to a queue
