@@ -75,7 +75,7 @@ def server_app_folder_content_check(
                 # return False
             else:
                 print(
-                    f"✅ Actual files and expected files match up in {current_folder} for {app}.\n"
+                    f"✅ Actual files and expected files match up in {colored(current_folder, "blue")} for {colored(app, "cyan")}.\n"
                 )
 
         if "expected-file-extensions" in node_file_structure.keys():
@@ -129,7 +129,7 @@ def server_app_folder_content_check(
                 # return False
             else:
                 print(
-                    f"✅ Actual folders and expected folders match up in {current_folder} for {app}.\n"
+                    f"✅ Actual folders and expected folders match up in {colored(current_folder, "blue")} for {colored(app, "cyan")}.\n"
                 )
 
         # Append folders (e.g., json dictionary keys) to a queue
