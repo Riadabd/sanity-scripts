@@ -69,9 +69,13 @@ def server_app_folder_content_check(
             ]
 
             if sorted(node_file_structure[item]) != sorted(actual_files):
-                print(f"❌ Mismatch between actual and expected files in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n")
+                print(
+                    f"❌ Mismatch between actual and expected files in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n"
+                )
                 print(f"* {colored("Actual files:", "red")} {sorted(actual_files)}")
-                print(f"* {colored("Expected files:", "green")} {sorted(node_file_structure[item])}\n")
+                print(
+                    f"* {colored("Expected files:", "green")} {sorted(node_file_structure[item])}\n"
+                )
                 # return False
             else:
                 print(
@@ -123,9 +127,13 @@ def server_app_folder_content_check(
 
         if expected_folders and actual_folders:
             if sorted(expected_folders) != sorted(actual_folders):
-                print(f"❌ Mismatch between actual and expected folders in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n")
+                print(
+                    f"❌ Mismatch between actual and expected folders in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n"
+                )
                 print(f"* {colored("Actual folders:", "red")} {sorted(actual_folders)}")
-                print(f"* {colored("Expected folders:", "green")} {sorted(expected_folders)}\n")
+                print(
+                    f"* {colored("Expected folders:", "green")} {sorted(expected_folders)}\n"
+                )
                 # return False
             else:
                 print(

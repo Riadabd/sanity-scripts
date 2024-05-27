@@ -19,7 +19,9 @@ def server_file_and_folder_check():
         server_apps = app_server_content[server]["applications"]
         for app in server_apps:
             print("\n#")
-            print(f"# Checking app folder content for {colored(app, "cyan")} in {colored(server, "magenta")}")
+            print(
+                f"# Checking app folder content for {colored(app, "cyan")} in {colored(server, "magenta")}"
+            )
             print("#\n")
 
             if server_app_folder_content_check(fs, app_server_content, server, app):
