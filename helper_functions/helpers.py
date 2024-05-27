@@ -97,7 +97,7 @@ def server_app_folder_content_check(
                 extension_file_count[extension] = len(
                     [
                         name
-                        for name, size in actual_backup_files
+                        for name, _ in actual_backup_files
                         if name.split(".", 1)[-1] == extension
                     ]
                 )
