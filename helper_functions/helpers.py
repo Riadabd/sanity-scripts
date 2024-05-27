@@ -2,6 +2,7 @@ import re
 import collections
 
 import humanize
+from termcolor import colored
 
 #
 # Helper Functions
@@ -68,9 +69,9 @@ def server_app_folder_content_check(
             ]
 
             if sorted(node_file_structure[item]) != sorted(actual_files):
-                print(f"❌ Mismatch between actual and expected files in {current_folder} for {app}:\n")
-                print(f"* Actual files: {sorted(actual_files)}")
-                print(f"* Expected files: {sorted(node_file_structure[item])}\n")
+                print(f"❌ Mismatch between actual and expected files in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n")
+                print(f"* {colored("Actual files:", "red")} {sorted(actual_files)}")
+                print(f"* {colored("Expected files:", "green")} {sorted(node_file_structure[item])}\n")
                 # return False
             else:
                 print(
@@ -102,7 +103,7 @@ def server_app_folder_content_check(
             ):
                 for key in extension_file_count.keys():
                     print(
-                        f"* Found {extension_file_count[key]} .{key} files in {current_folder} for {app}.\n"
+                        f"* Found {extension_file_count[key]} .{key} files in {colored(current_folder, "blue")} for {colored(app, "cyan")}.\n"
                     )
             else:
                 print("There was an extension mismatch!\n")
@@ -122,9 +123,9 @@ def server_app_folder_content_check(
 
         if expected_folders and actual_folders:
             if sorted(expected_folders) != sorted(actual_folders):
-                print(f"❌ Mismatch between actual and expected folders in {current_folder} for {app}:\n")
-                print(f"* Actual folders: {sorted(actual_folders)}")
-                print(f"* Expected folders: {sorted(expected_folders)}\n")
+                print(f"❌ Mismatch between actual and expected folders in {colored(current_folder, "blue")} for {colored(app, "cyan")}:\n")
+                print(f"* {colored("Actual folders:", "red")} {sorted(actual_folders)}")
+                print(f"* {colored("Expected folders:", "green")} {sorted(expected_folders)}\n")
                 # return False
             else:
                 print(
