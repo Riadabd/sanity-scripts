@@ -236,5 +236,8 @@ Running the code through a virtual environment allows for a faster develop-test-
 * [pipenv](https://pipenv.pypa.io/en/latest/)
 * [uv](https://github.com/astral-sh/uv)
 
-After installing your virtual environment tool, make sure to create and activate the virtual environment (according to your tool's docs). Once the virtual environment is activated, run the following to install the needed packages:
+After installing your virtual environment tool, make sure to create and activate the virtual environment (according to your tool's docs). Once the environment is activated, run the following command to install the needed packages:
 * `pip install -r requirements.txt`
+
+In case you are using [uv](https://github.com/astral-sh/uv), you need to run the following:
+* `uv pip install -r requirements.txt`
