@@ -25,9 +25,13 @@ def server_file_and_folder_check():
             print("#\n")
 
             if server_app_folder_content_check(fs, app_server_content, server, app):
-                print("File and folder content check was successful. ✅")
+                print(
+                    f"✅ File and folder content check for {colored(app, "cyan")} in {colored(server, "magenta")} was successful."
+                )
             else:
-                print("File and folder content check was unsuccessful. ❌")
+                print(
+                    f"❌ File and folder content check for {colored(app, "cyan")} in {colored(server, "magenta")} was unsuccessful."
+                )
                 # return False
 
     return True

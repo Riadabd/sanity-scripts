@@ -1,8 +1,9 @@
 import json
+from datetime import datetime, date
 
 from sshfs import SSHFileSystem
 from dotenv import dotenv_values
-from datetime import datetime, date
+from termcolor import colored
 
 from helper_functions.helpers import (
     get_latest_folder_and_timestamp,
@@ -144,9 +145,13 @@ def server_backup_checks(fs) -> bool:
             if server_app_folder_content_check(
                 fs, server_apps, server, app, latest_server_backup_folder_name
             ):
-                print("File and folder content check was successful. ✅")
+                print(
+                    f"✅ File and folder content check for {colored(app, "cyan")} in {colored(server, "magenta")} was successful."
+                )
             else:
-                print("File and folder content check was unsuccessful. ❌")
+                print(
+                    f"❌ File and folder content check for {colored(app, "cyan")} in {colored(server, "magenta")} was unsuccessful."
+                )
                 # return False
 
     # Check and compare backup folder sizes
