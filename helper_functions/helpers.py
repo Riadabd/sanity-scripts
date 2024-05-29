@@ -76,6 +76,15 @@ def server_app_folder_content_check(
                 print(
                     f"* {colored("Expected files:", "green")} {sorted(node_file_structure[item])}\n"
                 )
+
+                missing_files = [folder for folder in sorted(sorted(node_file_structure[item])) if folder not in sorted(actual_files)]
+                unexpected_files = [folder for folder in sorted(actual_files) if folder not in sorted(sorted(node_file_structure[item]))]
+
+                if missing_files:
+                    print(f"{colored("These files were expected, but are not currently present:", "yellow")} {missing_files}\n")
+
+                if unexpected_files:
+                    print(f"{colored("These files were NOT expected, but are currently present:", "yellow", attrs=["reverse"])} {unexpected_files}\n")
                 # return False
             else:
                 print(
@@ -134,6 +143,15 @@ def server_app_folder_content_check(
                 print(
                     f"* {colored("Expected folders:", "green")} {sorted(expected_folders)}\n"
                 )
+
+                missing_folders = [folder for folder in sorted(expected_folders) if folder not in sorted(actual_folders)]
+                unexpected_folders = [folder for folder in sorted(actual_folders) if folder not in sorted(expected_folders)]
+
+                if missing_folders:
+                    print(f"{colored("These folders were expected, but are not currently present:", "yellow")} {missing_folders}\n")
+
+                if unexpected_folders:
+                    print(f"{colored("These folders were NOT expected, but are currently present:", "yellow", attrs=["reverse"])} {unexpected_folders}\n")
                 # return False
             else:
                 print(
