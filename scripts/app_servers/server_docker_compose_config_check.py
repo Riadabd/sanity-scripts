@@ -44,7 +44,13 @@ def get_services_with_missing_keys(config_object):
         filtered_dict[service_key] = []
 
     for service in config_object["services"].keys():
-        # Check if a service does not contain the "restart" keyword
+        try:
+            _ = config_object["services"][service].keys()
+        except AttributeError:
+            print(f"⚠️ {service} is part of the docker compose file but does not have any attached keys to it.\n")
+            continue
+
+        # Check if a service does not contain the listed keys above
         for k in service_keys:
             if k not in config_object["services"][service].keys():
                 filtered_dict[k].append(service)
