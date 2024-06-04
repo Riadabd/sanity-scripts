@@ -64,10 +64,10 @@ def server_docker_compose_config_check():
     ) as file:
         app_server_docker_config_keys = json.load(file)
 
-    Path("tmp/").mkdir(parents=False, exist_ok=True)
+    Path("./tmp/").mkdir(parents=False, exist_ok=True)
 
     for server in app_server_docker_config_keys:
-        Path(f"tmp/{server}").mkdir(parents=False, exist_ok=True)
+        Path(f"./tmp/{server}").mkdir(parents=False, exist_ok=True)
 
         fs = SSHFileSystem(
             app_server_docker_config_keys[server]["host"],
@@ -76,7 +76,7 @@ def server_docker_compose_config_check():
 
         server_apps = app_server_docker_config_keys[server]["applications"]
         for app in server_apps:
-            Path(f"tmp/{server}/{app}").mkdir(parents=False, exist_ok=True)
+            Path(f"./tmp/{server}/{app}").mkdir(parents=False, exist_ok=True)
 
             print("\n#")
             print(
@@ -90,13 +90,13 @@ def server_docker_compose_config_check():
             ][app]["docker-compose-configs"]:
                 fs.get(
                     rpath=docker_compose_file_path,
-                    lpath=f"tmp/{server}/{app}/",
+                    lpath=f"./tmp/{server}/{app}/",
                 )
 
                 docker_compose_file_name = docker_compose_file_path.split("/")[-1]
 
                 with open(
-                    f"tmp/{server}/{app}/{docker_compose_file_name}", "r"
+                    f"./tmp/{server}/{app}/{docker_compose_file_name}", "r"
                 ) as config_file:
                     config_object = yaml.safe_load(config_file)
                     current_dict = merge_dicts(current_dict, config_object)
@@ -106,7 +106,7 @@ def server_docker_compose_config_check():
             for key in filtered_config_data:
                 print(f"{colored(f"{key}:", "red", attrs=["reverse"])} {filtered_config_data[key]}")
 
-    shutil.rmtree("tmp/")
+    shutil.rmtree("./tmp/")
 
     return True
 
