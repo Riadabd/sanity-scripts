@@ -74,7 +74,7 @@ def server_docker_compose_config_check():
 
             print("\n#")
             print(
-                f"# Checking app folder content for {colored(app, "cyan")} in {colored(server, "magenta")}"
+                f"# Checking missing docker compose config keys for {colored(app, "cyan")} in {colored(server, "magenta")}"
             )
             print("#\n")
 
@@ -95,8 +95,10 @@ def server_docker_compose_config_check():
                     config_object = yaml.safe_load(config_file)
                     current_dict = merge_dicts(current_dict, config_object)
 
-            data = get_services_with_missing_keys(current_dict)
-            print(data)
+            filtered_config_data = get_services_with_missing_keys(current_dict)
+            print(f"{colored("Services with missing keys:", "red")}")
+            for key in filtered_config_data:
+                print(f"{colored(f"{key}:", "red", attrs=["reverse"])} {filtered_config_data[key]}")
 
     shutil.rmtree("tmp/")
 
