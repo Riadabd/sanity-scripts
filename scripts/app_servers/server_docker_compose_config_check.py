@@ -1,6 +1,6 @@
 import json
-import os
 import shutil
+from pathlib import Path
 
 import yaml
 
@@ -47,7 +47,7 @@ def get_services_with_missing_keys(config_object):
         try:
             _ = config_object["services"][service].keys()
         except AttributeError:
-            print(f"⚠️ {service} is part of the docker compose file but does not have any attached keys to it.\n")
+            print(f"⚠️ {colored(f"{service}", "yellow")} is part of the docker compose file but does not have any attached keys to it.\n")
             continue
 
         # Check if a service does not contain the listed keys above
@@ -64,10 +64,10 @@ def server_docker_compose_config_check():
     ) as file:
         app_server_docker_config_keys = json.load(file)
 
-    os.mkdir("tmp/")
+    Path("tmp/").mkdir(parents=False, exist_ok=True)
 
     for server in app_server_docker_config_keys:
-        os.mkdir(f"tmp/{server}")
+        Path(f"tmp/{server}").mkdir(parents=False, exist_ok=True)
 
         fs = SSHFileSystem(
             app_server_docker_config_keys[server]["host"],
@@ -76,7 +76,7 @@ def server_docker_compose_config_check():
 
         server_apps = app_server_docker_config_keys[server]["applications"]
         for app in server_apps:
-            os.mkdir(f"tmp/{server}/{app}")
+            Path(f"tmp/{server}/{app}").mkdir(parents=False, exist_ok=True)
 
             print("\n#")
             print(
