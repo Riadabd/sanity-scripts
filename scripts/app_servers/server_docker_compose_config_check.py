@@ -64,10 +64,10 @@ def server_docker_compose_config_check():
     ) as file:
         app_server_docker_config_keys = json.load(file)
 
-    Path("./tmp/").mkdir(parents=False, exist_ok=True)
+    Path("./tmp/").mkdir(exist_ok=True)
 
     for server in app_server_docker_config_keys:
-        Path(f"./tmp/{server}").mkdir(parents=False, exist_ok=True)
+        Path(f"./tmp/{server}").mkdir(exist_ok=True)
 
         fs = SSHFileSystem(
             app_server_docker_config_keys[server]["host"],
@@ -76,7 +76,7 @@ def server_docker_compose_config_check():
 
         server_apps = app_server_docker_config_keys[server]["applications"]
         for app in server_apps:
-            Path(f"./tmp/{server}/{app}").mkdir(parents=False, exist_ok=True)
+            Path(f"./tmp/{server}/{app}").mkdir(exist_ok=True)
 
             print("\n#")
             print(
