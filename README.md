@@ -283,6 +283,54 @@ The config structure here is similar to the one from `app_backup_server_content.
 }
 ```
 
+### server_docker_compose_config_check.py
+
+This script checks for the absence of the following: [**"restart”**, **“logging”**, **“label”**]. This list can be modified in the future as the user sees fit.
+
+In order to specify what servers and apps to consider, the user can write this information in `app_server_docker_config_keys.json` inside `file_structure/app_servers`.
+
+####
+
+The structure of this file is as follows:
+
+```json
+{
+  "server-1": {
+    "host": "server-1.abc.xyz",
+    "user": "user",
+    "applications": {
+      "app-1": {
+        "docker-compose-configs": [
+          "/path/to/docker-compose.yml",
+          "/path/to/docker-compose.override.yml"
+        ]
+      },
+      "app-2": {
+        "docker-compose-configs": [
+          "/path/to/docker-compose.yml"
+        ]
+      }
+    }
+  },
+  "server-2": {
+    "host": "server-2.abc.xyz",
+    "user": "user",
+    "applications": {
+      "app-1": {
+        "docker-compose-configs": [
+          "/path/to/docker-compose.yml"
+        ]
+      }
+    }
+  }
+}
+```
+
+Some quick notes on the keys used in the file:
+* **host**: The host name of the remove server.
+* **user**: The username used to log into the server.
+* **docker-compose-configs**: This contains the path(s) to the docker compose config file(s) the script needs to parse.
+
 ## How to run
 
 ### Using Docker
