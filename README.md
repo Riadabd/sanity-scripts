@@ -333,6 +333,22 @@ Some quick notes on the keys used in the file:
 
 ## How to run
 
+### With `-f` (`--file`)
+
+`-f` is used to the pass the specific script you want to run. For example:
+
+```bash
+run.py -f scripts/app_servers/server_process_check.py
+```
+
+will run the server process check script.
+
+### Without `-f` (`--file`)
+
+In case `-f` is not provided, the project's entrypoint (`run.py`) will enumerate all scripts inside the `script/` directory and ask the user to choose which script to run.
+
+## How to build
+
 ### Using Docker
 
 The base image used for this project at the moment is `python:3.12`.
