@@ -1,6 +1,7 @@
 import json
 
 from fabric import Connection
+from termcolor import colored
 
 from helper_functions.helpers import get_non_zero_exit_status_container_processes
 
@@ -37,15 +38,15 @@ def server_process_check():
                 docker_ps_non_zero = get_non_zero_exit_status_container_processes([])
 
             print("\n#")
-            print(f"# Checking docker container statuses for {app} on {server}")
+            print(f"# Checking docker container statuses for {colored(app, "cyan")} on {colored(server, "magenta")}")
             print("#\n")
 
             if len(docker_ps_non_zero) > 0:
                 for ps in docker_ps_non_zero:
-                    print(f"* {ps}")
+                    print(f"{colored("*", "red")} {ps}")
             else:
                 print(
-                    f"{app} has no processes that have exited with a non-zero exit code."
+                    f"{colored(app, "cyan")} has no processes that have exited with a non-zero exit code."
                 )
 
 

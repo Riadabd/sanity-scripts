@@ -81,11 +81,11 @@ def check_backup_size(
         )
 
         print(
-            f"* Backup size for {full_backup_path_1} on {yesterday_date} is {get_folder_size(backup_files_1)}"
+            f"* Backup size for {colored(full_backup_path_1, "cyan")} on {colored(yesterday_date, "magenta")} is {colored(get_folder_size(backup_files_1), "green", attrs=["reverse"])}"
         )
 
         print(
-            f"* Backup size for {full_backup_path} on {today_date} is {get_folder_size(backup_files)}\n"
+            f"* Backup size for {colored(full_backup_path, "cyan")} on {colored(today_date, "magenta")} is {colored(get_folder_size(backup_files), "green", attrs=["reverse"])}\n"
         )
 
     return True
