@@ -47,7 +47,9 @@ def get_services_with_missing_keys(config_object):
         try:
             _ = config_object["services"][service].keys()
         except AttributeError:
-            print(f"⚠️ {colored(f"{service}", "yellow")} is part of the docker compose file but does not have any attached keys to it.\n")
+            print(
+                f"⚠️ {colored(f"{service}", "yellow")} is part of the docker compose file but does not have any attached keys to it.\n"
+            )
             continue
 
         # Check if a service does not contain the listed keys above
@@ -104,7 +106,9 @@ def server_docker_compose_config_check():
             filtered_config_data = get_services_with_missing_keys(current_dict)
             print(f"{colored("Services with missing keys:", "red")}")
             for key in filtered_config_data:
-                print(f"{colored(f"{key}:", "red", attrs=["reverse"])} {filtered_config_data[key]}")
+                print(
+                    f"{colored(f"{key}:", "red", attrs=["reverse"])} {filtered_config_data[key]}"
+                )
 
     shutil.rmtree("./tmp/")
 

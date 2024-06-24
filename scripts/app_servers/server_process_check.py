@@ -38,7 +38,9 @@ def server_process_check():
                 docker_ps_non_zero = get_non_zero_exit_status_container_processes([])
 
             print("\n#")
-            print(f"# Checking docker container statuses for {colored(app, "cyan")} on {colored(server, "magenta")}")
+            print(
+                f"# Checking docker container statuses for {colored(app, "cyan")} on {colored(server, "magenta")}"
+            )
             print("#\n")
 
             if len(docker_ps_non_zero) > 0:
