@@ -40,10 +40,12 @@ def get_nth_folder_and_timestamp(backup_folder_list, index) -> tuple[str, str]:
     return latest_abb_charlie_backup[0], latest_abb_charlie_backup_timestamp
 
 
-# Check the content of each app folder
 def server_app_folder_content_check(
     fs, server_filesystem_structure, server, app, latest_timestamp_folder=""
 ) -> bool:
+    """
+    Check the content of each app folder
+    """
     root_folder = f"{latest_timestamp_folder}"
 
     queue = collections.deque(
@@ -167,21 +169,21 @@ def server_app_folder_content_check(
     return True
 
 
-#
-# Returns a tuple containing the file size in bytes and a humanized represenation
-# of the file size (for visual purposes).
-#
 def get_folder_size(input_list):
+    """
+    Returns a tuple containing the file size in bytes and a humanized represenation
+    of the file size (for visual purposes).
+    """
     total_size_in_bytes = sum(size for _, size in input_list)
 
     return (total_size_in_bytes, humanize.naturalsize(total_size_in_bytes, gnu=True))
 
 
-#
-# Returns container processes that have a non-zero exit status code (i.e., they
-# did not exit gracefully).
-#
 def get_non_zero_exit_status_container_processes(container_process_list):
+    """
+    Returns container processes that have a non-zero exit status code (i.e., they
+    did not exit gracefully).
+    """
     result = []
     regex_pattern = r"(\d+)"
 

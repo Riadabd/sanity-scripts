@@ -26,9 +26,11 @@ def server_latest_backup_checks(latest_server_backup_timestamp: str) -> bool:
     return latest_timestamp == current_timestamp
 
 
-# Checks whether the top-level backup folder is present for all backed up apps
-# running on a particular.
 def server_app_folder_check(fs, latest_timestamp_folder, app_list) -> bool:
+    """
+    Checks whether the top-level backup folder is present for all backed up apps
+    running on a particular.
+    """
     server_apps = [
         detail["name"].split("/")[-1]
         for detail in fs.ls(f"{latest_timestamp_folder}/data", detail=True)
@@ -37,11 +39,6 @@ def server_app_folder_check(fs, latest_timestamp_folder, app_list) -> bool:
     return sorted(app_list) == sorted(server_apps)
 
 
-#
-# Compare today's backup folder size with the one from yesterday. In all cases almost
-# (except when: virtuoso size optimization is performed, delete queries are run removing
-# large amounts of data), today's backup must be greater than or equal to that from yesterday.
-#
 def check_backup_size(
     fs,
     latest_folder_timestamp,
@@ -50,6 +47,11 @@ def check_backup_size(
     server,
     app,
 ) -> bool:
+    """
+    Compare today's backup folder size with the one from yesterday. In all cases almost
+    (except when: virtuoso size optimization is performed, delete queries are run removing
+    large amounts of data), today's backup must be greater than or equal to that from yesterday.
+    """
     app_backup_locations = full_backup_locations[server][app]["backup-folders"]
 
     for backup_folder in app_backup_locations:
@@ -91,8 +93,10 @@ def check_backup_size(
     return True
 
 
-# Runs all backup checks
 def server_backup_checks(fs) -> bool:
+    """
+    Runs all backup checks
+    """
     with open("file_structure/app_backup_server_content.json", "r") as file:
         server_apps = json.load(file)
 
